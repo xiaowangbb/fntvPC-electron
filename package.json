@@ -1,0 +1,63 @@
+{
+    "name": "fntv",
+    "version": "1.6.3",
+    "description": "A fntv app built with Electron",
+    "main": "dist/main/main.js",
+    "scripts": {
+        "start": "electron .",
+        "dev": "tsc && tsc-alias && electron . --dev",
+        "build": "build:ts && build:electron",
+        "build:ts": "tsc && tsc-alias",
+        "build:electron": "electron-builder"
+    },
+    "author": "tracing",
+    "devDependencies": {
+        "@types/electron": "file:./third_party/electron",
+        "@types/node": "^24.0.14",
+        "electron": "file:./third_party/electron",
+        "electron-builder": "^26.0.12",
+        "tsc-alias": "^1.8.16",
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "axios": "^1.11.0"
+    },
+    "build": {
+        "directories": {
+            "output": "release"
+        },
+        "icon": "build/icon.ico",
+        "productName": "飞牛影视",
+        "artifactName": "FNMedia_${version}_${os}_${arch}.${ext}",
+        "electronDist": "./third_party/electron-patch",
+        "win": {
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ]
+        },
+        "nsis": {
+            "allowToChangeInstallationDirectory": true,
+            "oneClick": false,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true
+        },
+        "files": [
+            "dist",
+            "build"
+        ],
+        "extraFiles": [
+            {
+                "from": "third_party/mpv",
+                "to": "third_party/mpv",
+                "filter": [
+                    "**/*"
+                ]
+            }
+        ]
+    }
+}
