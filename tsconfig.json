@@ -48,8 +48,7 @@
         },
         // 明确使用 Node 和 Electron 类型（便于识别 process、Buffer 等全局类型）
         "types": [
-            "node",
-            "electron"
+            "node"
         ]
     },
     // 要包含的源码路径：保持对 src 下所有文件的编译/类型检查支持

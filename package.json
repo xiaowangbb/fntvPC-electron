@@ -8,13 +8,13 @@
         "dev": "tsc && tsc-alias && electron . --dev",
         "build": "build:ts && build:electron",
         "build:ts": "tsc && tsc-alias",
-        "build:electron": "electron-builder"
+        "build:electron": "electron-builder",
+        "build:mac": "npm run build:ts && electron-builder --mac"
     },
     "author": "tracing",
     "devDependencies": {
-        "@types/electron": "file:./third_party/electron",
         "@types/node": "^24.0.14",
-        "electron": "file:./third_party/electron",
+        "electron": "^36.2.1",
         "electron-builder": "^26.0.12",
         "tsc-alias": "^1.8.16",
         "typescript": "^5.8.3"
@@ -29,7 +29,6 @@
         "icon": "build/icon.ico",
         "productName": "飞牛影视",
         "artifactName": "FNMedia_${version}_${os}_${arch}.${ext}",
-        "electronDist": "./third_party/electron-patch",
         "win": {
             "target": [
                 {
@@ -37,6 +36,43 @@
                     "arch": [
                         "x64"
                     ]
+                }
+            ]
+        },
+        "mac": {
+            "target": [
+                {
+                    "target": "dmg",
+                    "arch": [
+                        "arm64"
+                    ]
+                }
+            ],
+            "icon": "build/icon.icns",
+            "category": "public.app-category.entertainment",
+            "hardenedRuntime": true,
+            "gatekeeperAssess": false,
+            "entitlements": "build/entitlements.mac.plist",
+            "entitlementsInherit": "build/entitlements.mac.plist"
+        },
+        "dmg": {
+            "title": "飞牛影视",
+            "icon": "build/icon.icns",
+            "background": "build/dmg-background.png",
+            "window": {
+                "width": 540,
+                "height": 380
+            },
+            "contents": [
+                {
+                    "x": 130,
+                    "y": 220
+                },
+                {
+                    "x": 410,
+                    "y": 220,
+                    "type": "link",
+                    "path": "/Applications"
                 }
             ]
         },
